@@ -11,10 +11,10 @@ export default function HomePage() {
     // <div>abc</div>
     <div className="flex flex-col min-h-screen">
       <Hero />
-      <PerksBar />
       <IntroText />
+      <PerksBar />
       <IndustrySection />
-      <ContentSection/>
+      <ContentSection />
       <Testimonials />
     </div>
   );
