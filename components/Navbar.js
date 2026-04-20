@@ -38,13 +38,20 @@ const PRODUCTS = [
   },
 ];
 
+// Yahan apni news add karein
+const TICKER_NEWS = [
+  "🔥 Limited Time Offer: Get 20% Off on All Custom CBD Packaging!",
+  "🚚 Free Shipping on orders over $500 - Order Now!",
+  "✨ New Box Styles added to our Portfolio - Check them out!",
+];
+
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -56,16 +63,41 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-[100] w-full pointer-events-none font-sans">
+      {/* --- NEWS TICKER PATTI --- */}
+      <div className="w-full bg-[#f4a11d] text-white overflow-hidden pointer-events-auto py-1.5 border-b border-[#f4a11d]">
+        <motion.div
+          animate={{ x: ["100%", "-100%"] }}
+          transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
+          className="whitespace-nowrap flex gap-10 text-[10px] font-bold uppercase tracking-widest"
+        >
+          {TICKER_NEWS.map((news, i) => (
+            <span key={i} className="inline-block">
+              {news}
+            </span>
+          ))}
+          {/* Re-render news for seamless loop */}
+          {TICKER_NEWS.map((news, i) => (
+            <span key={`dup-${i}`} className="inline-block">
+              {news}
+            </span>
+          ))}
+        </motion.div>
+      </div>
+
       <motion.nav
-        className={`pointer-events-auto mx-auto transition-all duration-500 ease-in-out border-b ${
+        className={`pointer-events-auto w-full transition-all duration-500 ease-in-out border-b ${
           isScrolled
-            ? "bg-black w-full max-w-full shadow-2xl rounded-none border-transparent"
-            : "bg-[#f3f3f3]/95 backdrop-blur-md mt-4 w-[95%] max-w-7xl border-black/5 rounded-2xl"
+            ? "bg-black shadow-2xl border-transparent"
+            : "bg-[#f3f3f3]/95 backdrop-blur-md border-black/5"
         }`}
       >
         {/* --- TOP BAR (Desktop Only) --- */}
         <div
-          className={`hidden md:flex justify-between items-center px-10 py-2 text-[9px] tracking-[0.2em] uppercase font-bold border-b transition-colors ${isScrolled ? "text-gray-400 border-white/10" : "text-gray-600 border-black/5"}`}
+          className={`hidden md:flex justify-between items-center px-10 py-2 text-[9px] tracking-[0.2em] uppercase font-bold border-b transition-colors ${
+            isScrolled
+              ? "text-gray-400 border-white/10"
+              : "text-gray-600 border-black/5"
+          }`}
         >
           <div className="flex gap-6">
             <span className="flex items-center gap-1.5 hover:text-orange-500 cursor-pointer transition-colors">
@@ -92,41 +124,48 @@ export default function Navbar() {
 
         {/* --- MAIN NAVIGATION --- */}
         <div
-          className={`px-6 md:px-10 flex justify-between items-center transition-all duration-300 ${isScrolled ? "h-14" : "h-16"}`}
+          className={`px-6 md:px-10 flex justify-between items-center transition-all duration-300 ${
+            isScrolled ? "h-16" : "h-20"
+          }`}
         >
-          {/* Logo */}
+          {/* Logo - Large Size */}
           <div className="flex items-center cursor-pointer">
             <img
               src={logoSrc}
               alt="Logo"
-              className={`object-contain transition-all duration-300 ${isScrolled ? "h-7 md:h-9" : "h-9 md:h-11"}`}
+              className={`object-contain transition-all duration-300 ${
+                isScrolled ? "h-10 md:h-12" : "h-11 md:h-14"
+              }`}
             />
           </div>
 
-          {/* Desktop Menu */}
+          {/* Desktop Menu - Attached to Bottom */}
           <div
-            className={`hidden lg:flex items-center justify-center flex-1 gap-10 text-[10px] font-bold uppercase tracking-[0.1em] ${textColor}`}
+            className={`hidden lg:flex items-end justify-center flex-1 gap-10 text-[13px] font-bold uppercase tracking-[0.1em] h-full pb-4 ${textColor}`}
           >
             <NavLink title="All Products" isScrolled={isScrolled} />
+
+            {/* Categories Dropdown */}
             <div
-              className="relative h-full flex items-center cursor-pointer"
+              className="relative flex items-end cursor-pointer"
               onMouseEnter={() => setActiveDropdown("products")}
               onMouseLeave={() => setActiveDropdown(null)}
             >
-              <button className="flex items-center gap-1 hover:text-orange-500 transition-colors uppercase">
-                Categories{" "}
+              <button className="flex items-end gap-1 hover:text-orange-500 transition-colors uppercase">
+                Categories
                 <ChevronDown
                   size={14}
-                  className={activeDropdown ? "rotate-180" : ""}
+                  className={`transition-transform duration-300 ${activeDropdown ? "rotate-180" : ""}`}
                 />
               </button>
+
               <AnimatePresence>
                 {activeDropdown === "products" && (
                   <motion.div
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="absolute top-full -left-10 w-[500px] pt-2"
+                    className="absolute top-full -left-10 w-[500px] pt-2 pointer-events-auto"
                   >
                     <div className="bg-white border border-black/5 rounded-xl p-5 shadow-2xl grid grid-cols-2 gap-3">
                       {PRODUCTS.map((item) => (
@@ -152,18 +191,22 @@ export default function Navbar() {
                 )}
               </AnimatePresence>
             </div>
+
             <NavLink title="Portfolio" isScrolled={isScrolled} />
             <NavLink title="Styles" isScrolled={isScrolled} />
           </div>
 
-          {/* Right Section: Search & Quote */}
+          {/* Right Section */}
           <div className="flex items-center gap-4">
-            {/* Search Bar - Fixed Styling for both states */}
             <div className="hidden xl:flex relative group">
               <input
                 type="text"
                 placeholder="Search..."
-                className={`bg-white/10 border border-white/20 rounded-full py-2 px-5 text-[10px] w-36 focus:w-48 outline-none transition-all duration-300 ${isScrolled ? "text-white placeholder:text-gray-500" : "text-black border-black/10 placeholder:text-gray-500"}`}
+                className={`bg-white/10 border rounded-full py-2 px-5 text-[10px] w-36 focus:w-48 outline-none transition-all duration-300 ${
+                  isScrolled
+                    ? "text-white border-white/20 placeholder:text-gray-500"
+                    : "text-black border-black/10 placeholder:text-gray-500"
+                }`}
               />
               <Search
                 size={14}
@@ -171,14 +214,17 @@ export default function Navbar() {
               />
             </div>
 
-            <button className="hidden sm:block bg-orange-600 hover:bg-orange-500 text-white rounded-full font-black text-[10px] uppercase tracking-widest px-6 py-2.5 shadow-lg active:scale-95 transition-all">
+            <button className="hidden sm:block bg-[#f4a11d] hover:bg-[#f4a11d]-500 text-white rounded-full font-black text-[10px] uppercase tracking-widest px-6 py-2.5 shadow-lg active:scale-95 transition-all">
               Get a Free Quote
             </button>
 
-            {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className={`lg:hidden p-2 rounded-lg transition-colors ${isScrolled ? "text-white hover:bg-white/10" : "text-black hover:bg-black/5"}`}
+              className={`lg:hidden p-2 rounded-lg transition-colors ${
+                isScrolled
+                  ? "text-white hover:bg-white/10"
+                  : "text-black hover:bg-black/5"
+              }`}
             >
               <Menu size={24} />
             </button>
@@ -186,11 +232,10 @@ export default function Navbar() {
         </div>
       </motion.nav>
 
-      {/* --- MOBILE SIDEBAR (Drawer) --- */}
+      {/* --- MOBILE SIDEBAR --- */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -198,7 +243,6 @@ export default function Navbar() {
               onClick={() => setIsMobileMenuOpen(false)}
               className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] pointer-events-auto"
             />
-            {/* Sidebar Content */}
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
@@ -219,7 +263,7 @@ export default function Navbar() {
                   <X size={24} />
                 </button>
               </div>
-
+              {/* Mobile Links */}
               <div className="flex flex-col gap-6 text-[12px] font-bold uppercase tracking-widest text-black">
                 <a
                   href="#"
@@ -253,15 +297,10 @@ export default function Navbar() {
                   Styles
                 </a>
               </div>
-
-              <div className="mt-auto flex flex-col gap-4 pt-10">
-                <button className="w-full bg-orange-600 text-white py-4 rounded-xl font-black uppercase text-[11px] tracking-widest shadow-xl shadow-orange-600/20">
+              <div className="mt-auto pt-10">
+                <button className="w-full bg-[#f4a11d] text-white py-4 rounded-xl font-black uppercase text-[11px] tracking-widest shadow-xl">
                   Get a Free Quote
                 </button>
-                <div className="flex flex-col gap-2 text-[10px] text-gray-500 font-medium text-center italic">
-                  <span>(332) 222-4710</span>
-                  <span>support@sireprinting.com</span>
-                </div>
               </div>
             </motion.div>
           </>
@@ -275,7 +314,7 @@ function NavLink({ title, isScrolled }) {
   return (
     <a
       href="#"
-      className="relative group overflow-hidden h-4 flex flex-col justify-start"
+      className="relative group overflow-hidden h-5 flex flex-col justify-start"
     >
       <span
         className={`relative transition-transform duration-500 ease-out group-hover:-translate-y-full ${isScrolled ? "text-white" : "text-black"}`}
