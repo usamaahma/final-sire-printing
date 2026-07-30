@@ -9,6 +9,7 @@ import {
   Settings,
   Image as ImageIcon,
   Menu,
+  Square,
 } from "lucide-react"; // Icons ke liye npm install lucide-react karein
 
 export default function AdminLayout({ children }) {
@@ -21,6 +22,7 @@ export default function AdminLayout({ children }) {
       icon: <Layers size={20} />,
       path: "/admin/categories",
     },
+    { name: "Navbar Categories", icon: <Square size={20} />, path: "/admin/navbar-categories" }, 
     { name: "Subcategories", icon: <Box size={20} />, path: "/admin/subcategories" },
     { name: "Products", icon: <Box size={20} />, path: "/admin/products" },
     { name: "Media Kit", icon: <ImageIcon size={20} />, path: "/admin/media" },
