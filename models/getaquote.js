@@ -12,14 +12,12 @@ const GetAQuoteSchema = new mongoose.Schema(
     length: { type: Number, required: true },
     width: { type: Number, required: true },
     height: { type: Number, required: true },
-    unit: { type: String, required: true }, // e.g., "in", "cm", "mm"
+    unit: { type: String, required: true },
     quantity: { type: Number, required: true },
     materialType: { type: String, required: true },
     printedOptions: { type: String },
     printedSides: { type: String },
-    description: { type: String }, // Product specifications description
-
-    // File Upload (Stored as URL)
+    description: { type: String },
     attachment: { type: String },
 
     // Admin Status

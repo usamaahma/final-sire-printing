@@ -41,7 +41,6 @@ export default function Hero() {
         className="absolute top-0 bottom-0 left-0 w-full bg-[#1a1a1a]"
         style={{ clipPath: "polygon(0 0, 60% 0, 45% 50%, 60% 100%, 0 100%)" }}
       />
-
       <div className="container mx-auto px-6 md:px-12 py-16 relative z-10 flex items-center h-[600px]">
         <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] items-center gap-8 w-full">
           {/* Text Content */}
@@ -55,7 +54,7 @@ export default function Hero() {
                 transition={{ duration: 0.5 }}
               >
                 <h1 className="leading-[1.1] mb-6">
-                  <span className="block text-5xl md:text-6xl font-black uppercase tracking-tighter text-white">
+                  <span className="block text-5xl md:text-6xl font-black uppercase tracking-tighter text-white ">
                     {activeSlide.title}
                   </span>
                   <span className="block text-2xl md:text-4xl font-bold text-[#ffa015] mt-2">
