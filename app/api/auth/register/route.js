@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
-import User from "../../../../models/user";
+import User from "@/models/user";
 // Note: Install bcryptjs (npm install bcryptjs) to hash your passwords!
 import bcrypt from "bcryptjs";
 

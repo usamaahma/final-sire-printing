@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
-import Address from "../../../models/address";
+import Address from "@/models/address";
 
 // PUT: Address Update karna
 export async function PUT(req, { params }) {

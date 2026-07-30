@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
-import Order from "../../../models/order";
+import Order from "@/models/order";
 
 // GET: Saare Orders (Admin) ya specific user ke orders fetch karne ke liye
 export async function GET(req) {

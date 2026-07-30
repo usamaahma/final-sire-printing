@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
-import Order from "../../../models/order";
+import Order from "@/models/order";
 
 // PUT: Order Status ya details update karne ke liye
 export async function PUT(req, { params }) {

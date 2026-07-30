@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
-import Address from "../../../models/address";
+import Address from "@/models/address";
 
 // GET: Addresses fetch karna (User ID aur optional addressType ke mutabiq)
 export async function GET(req) {

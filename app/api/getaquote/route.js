@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
-import GetAQuote from "../../../models/getaquote";
+import GetAQuote from "@/models/getaquote";
 
 // SAARI LEADS FETCH KARNE KE LIYE
 export async function GET() {
