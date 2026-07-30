@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
-import ApprovedDesign from "../../../../models/ApprovedDesign";
+import ApprovedDesign from "@/models/ApprovedDesign";
 
 // GET: Fetch designs by userId
 export async function GET(req) {
